@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.linkyuji.dao.FolderDAO">
+	<insert id="insertFolder" parameterType="folderbean">
+		INSERT INTO
+		`sharefile`.`folder` (`userid`, `foldername`, `folderparent`) VALUES
+		(#{userid}, #{foldername}, #{folderparent});
+	</insert>
+	<select id="loadFolderbyid" parameterType="int"
+		resultType="folderbean">
+		SELECT * FROM sharefile.folder where 
+		folderparent = #{idfolder} and userid=#{userid};
+	</select>
+</mapper>

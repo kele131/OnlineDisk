@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<typeAliases>
+		<typeAlias alias="userbean" type="com.linkyuji.bean.UsersBean" />
+		<typeAlias alias="folderbean" type="com.linkyuji.bean.FolderBean"/>
+		<typeAlias alias="filebean" type="com.linkyuji.bean.FileBean"/>
+	</typeAliases>
+
+	<mappers>
+		<mapper resource="com/linkyuji/sqlMapper/UsersMapper.xml" />
+		<mapper resource="com/linkyuji/sqlMapper/FolderMapper.xml" />
+		<mapper resource="com/linkyuji/sqlMapper/FileMapper.xml"/>
+		
+	</mappers>
+</configuration>
