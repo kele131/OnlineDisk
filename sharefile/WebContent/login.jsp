@@ -30,7 +30,7 @@ input {
 			<label> 用户：</label><input type="text" name="user.userid"
 				style="height: 30px" class="span3" value="请输入用户名"
 				onfocus="if(this.value=='请输入用户名'){this.value='',this.style.color='#000000'}"
-				onblur="if(this.value==''){this.value='请输入用户名',this.style.color='#bfbfbf'}" "/>
+				onblur="if(this.value==''){this.value='请输入用户名',this.style.color='#bfbfbf'}"/>
 
 			<br> <label>密码：</label> <input type="text" name="user.userpsw"
 				style="height: 30px" clss="span3" value="请输入密码"

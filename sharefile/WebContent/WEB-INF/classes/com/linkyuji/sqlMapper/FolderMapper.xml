@@ -3,12 +3,16 @@
 <mapper namespace="com.linkyuji.dao.FolderDAO">
 	<insert id="insertFolder" parameterType="folderbean">
 		INSERT INTO
-		`sharefile`.`folder` (`userid`, `foldername`, `folderparent`) VALUES
-		(#{userid}, #{foldername}, #{folderparent});
+		`sharefile`.`folder` (`userid`, `foldername`, `folderparent`,`remark`)
+		VALUES
+		(#{userid}, #{foldername}, #{folderparent},#{remark});
 	</insert>
-	<select id="loadFolderbyid" parameterType="int"
-		resultType="folderbean">
-		SELECT * FROM sharefile.folder where 
+	<select id="loadFolderbyid" parameterType="int" resultType="folderbean">
+		SELECT * FROM sharefile.folder where
 		folderparent = #{idfolder} and userid=#{userid};
+	</select>
+	<select id="getFolderinfo" parameterType="int" resultType="folderbean">
+		SELECT * FROM sharefile.folder where
+		idfolder=#{id};
 	</select>
 </mapper>
