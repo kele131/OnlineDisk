@@ -15,4 +15,8 @@
 		SELECT * FROM sharefile.folder where
 		idfolder=#{id};
 	</select>
+	<delete id="deleteFolder" parameterType="int">
+	DELETE FROM `sharefile`.`folder` WHERE `idfolder`=#{id};
+	
+	</delete>
 </mapper>

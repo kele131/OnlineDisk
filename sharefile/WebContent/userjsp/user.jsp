@@ -6,30 +6,9 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link href="bootstrap-3.3.5-dist/css/bootstrap.min.css" rel="stylesheet">
 <title>用户界面</title>
-<script type="text/javascript">
-	function couldupload(inputfile) {
-		var file = inputfile.value;
-		var btn = document.getElementById("submitfile");
-		if (file == null) {
-			btn.style.display = "none";
-		} else {
-			var re=/^([\u4E00-\u9FA5]|\w)*$/; 
-			var name = file.substring(file.lastIndexOf('\\')+1,file.lastIndexOf('.'));
-			
-			if(re.test(name)){
-				btn.style.display = "";
-			}else{
-				btn.style.display = "none";
-				alert("文件名中含有特殊字符请重新选择")
-			}
-			
-		}
 
-		
-
-	}
-</script>
 
 </head>
 <body>
@@ -39,6 +18,7 @@
 	</center>
 	<%
 		UsersBean a = (UsersBean) session.getAttribute("USER");
+	
 		if (a == null)
 			return;
 	%>
@@ -47,9 +27,10 @@
 	<br>
 	<br>
 	<br>
-
+	<a href="user_exit">注销</a>
 	<center>
-		<table width="540" border="1">
+	<div  style="width: 540px">
+		<table  border="1" class="table table-striped" >
 			<tr>
 				<td><a
 					href="folder_loadFolderbyid?folder.idfolder=0&&folder.userid=<%=a.getUserid()%>">主目录</a>
@@ -78,8 +59,13 @@
 						FolderBean folder = (FolderBean) objlist.get(i);
 			%>
 			<tr>
-				<td>文件夹：<a id="<%=folder.getFoldername()%>"
-					href="folder_loadFolderbyid?folder.idfolder=<%=folder.getIdfolder()%>&&folder.userid=<%=a.getUserid()%>"><%=folder.getFoldername()%></a></td>
+				<td><div style='float:left;width:80%'>
+					文件夹：<a id="<%=folder.getFoldername()%>"
+					href="folder_loadFolderbyid?folder.idfolder=<%=folder.getIdfolder()%>&&folder.userid=<%=a.getUserid()%>"><%=folder.getFoldername()%></a>
+					</div>
+					<div align="right" style='float:right;width:20%'><a  href="folder_deleteFolder?folderid=<%=folder.getIdfolder()%>">删除</a></div>
+				</td>
+					
 			</tr>
 			<%
 				}
@@ -89,7 +75,11 @@
 						FileBean file = (FileBean) filelist.get(i);
 			%>
 			<tr>
-				<td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp文件：<a href="file_download?fileid=<%=file.getIdfile() %>"><%=file.getFilename()%></a></td>
+				<td >
+				<div style='float:left;width:80%'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp文件：
+				<a href="file_download?fileid=<%=file.getIdfile() %>"><%=file.getFilename()%></a></div>
+				<div align="right" style='float:right;width:20%'><a  href="file_delete?fileid=<%=file.getIdfile() %>">删除</a></div>
+				</td>
 			</tr>
 			<%
 				}
@@ -97,7 +87,7 @@
 				}
 			%>
 		</table>
-
+</div>
 
 	</center>
 	<%
@@ -126,3 +116,24 @@
 	</div>
 </body>
 </html>
+<script type="text/javascript">
+	function couldupload(inputfile) {
+		var file = inputfile.value;
+		var btn = document.getElementById("submitfile");
+		if (file == null) {
+			btn.style.display = "none";
+		} else {
+			var re=/^([\u4E00-\u9FA5]|\w)*$/; 
+			var name = file.substring(file.lastIndexOf('\\')+1,file.lastIndexOf('.'));
+			
+			if(re.test(name)){
+				btn.style.display = "";
+			}else{
+				btn.style.display = "none";
+				alert("文件名中含有特殊字符请重新选择")
+				
+			}			
+		}
+	}
+		
+</script>

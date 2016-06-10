@@ -4,10 +4,9 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>注册失败</title>
+<title>登录失败</title>
 </head>
 <body>
-	注册失败！
-	<a href="login.jsp">回到登录界面</a>
+<label style="color: red;">用户名/密码&nbsp;错误</label>
 </body>
 </html>

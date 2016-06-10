@@ -124,7 +124,7 @@ public class FileAction {
 	public String download() throws UnsupportedEncodingException {
 
 		FileBean filebeansql = fileDao.getFilebyid(fileid);
-		fileName=filebeansql.getFilename();
+		fileName= new String(filebeansql.getFilename().getBytes(), "ISO8859-1");
 		System.out.println(fileName);
 
 		try {
@@ -137,6 +137,18 @@ public class FileAction {
 			return "false";
 		}
 
+	}
+	public String delete(){
+		FileBean filebeansql = fileDao.getFilebyid(fileid);
+		try{
+	    File dfile = new File(filebeansql.getPath());  
+	    // 路径为文件且不为空则进行删除  
+	    if (dfile.isFile() && dfile.exists()) {  
+	    	dfile.delete();  
+	    } 	
+		}catch(Exception e){}
+	    fileDao.deleteFile(fileid);
+		return "filesuccess";
 	}
 
 }

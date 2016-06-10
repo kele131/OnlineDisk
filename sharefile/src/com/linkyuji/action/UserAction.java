@@ -82,6 +82,7 @@ public class UserAction {
 		UsersBean userinfo = usersDao.getUserByid(user.getUserid());
 		ActionContext actionContext = ActionContext.getContext(); // 取到struts容器
 		Map session = actionContext.getSession(); // 取得session
+		
 		session.put("obj", userinfo); // 把用户数据放入session
 		return "userinfo";
 	}
@@ -96,6 +97,14 @@ public class UserAction {
 		System.out.println(user.getUserid());
 		usersDao.deleteuser(user);
 		return "edisusses";
+	}
+	
+	public String exit(){
+		ActionContext actionContext = ActionContext.getContext(); // 取到struts容器
+		Map session = actionContext.getSession(); // 取得session
+		session.remove("USER");
+		
+		return "exit";
 	}
 
 }

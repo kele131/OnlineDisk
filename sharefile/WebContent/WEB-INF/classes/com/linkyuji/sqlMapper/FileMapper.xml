@@ -17,4 +17,10 @@
 		SELECT * FROM sharefile.file where
 		idfile = #{idfile}
 	</select>
+	
+	<delete id="deleteFile" parameterType="int">
+		DELETE FROM `sharefile`.`file` WHERE `idfile`=#{id};
+		
+	</delete>
+	
 </mapper>
