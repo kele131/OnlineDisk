@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
 import java.util.Map;
 
 import com.linkyuji.bean.FileBean;
@@ -16,14 +17,13 @@ import com.opensymphony.xwork2.ActionContext;
 public class FileAction {
 	private FileBean filebean;
 	private FileDAO fileDao;
-
+	private int fileid;
 	private File[] file;
-
+	private InputStream inputStream;
 	// 提交过来的file的名字
 	private String[] fileFileName;
-
-	// 提交过来的file的MIME类型
-	private String[] fileContentType;
+	private String fileName;
+	
 
 	public FileBean getFilebean() {
 		return filebean;
@@ -41,12 +41,28 @@ public class FileAction {
 		this.fileDao = fileDao;
 	}
 
+	public int getFileid() {
+		return fileid;
+	}
+
+	public void setFileid(int fileid) {
+		this.fileid = fileid;
+	}
+
 	public File[] getFile() {
 		return file;
 	}
 
 	public void setFile(File[] file) {
 		this.file = file;
+	}
+
+	public InputStream getInputStream() {
+		return inputStream;
+	}
+
+	public void setInputStream(InputStream inputStream) {
+		this.inputStream = inputStream;
 	}
 
 	public String[] getFileFileName() {
@@ -57,40 +73,70 @@ public class FileAction {
 		this.fileFileName = fileFileName;
 	}
 
-	public String[] getFileContentType() {
-		return fileContentType;
+	public String getFileName() {
+		return fileName;
 	}
 
-	public void setFileContentType(String[] fileContentType) {
-		this.fileContentType = fileContentType;
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
 	}
 
 	public String upload() throws Exception {
+		filebean = new FileBean();
 		ActionContext actionContext = ActionContext.getContext(); // 取到struts容器
 		Map session = actionContext.getSession(); // 取得session
-		String path = "F:\\Share\\User\\"+(String) session.get("path");
+		UsersBean ub = (UsersBean) session.get("USER");
+		String path = "F:\\Share\\User\\" + (String) session.get("path");
+		int upp = 0;
+		try {
+			upp = Integer.parseInt(session.get("myp").toString());
+		} catch (Exception e) {
+		}
+		filebean.setUserid(ub.getUserid());
 		for (int i = 0; i < file.length; i++) {
-			
-			System.out.println(path + "\\"+fileFileName[i]);
-			 InputStream is = new FileInputStream(file[i]);
-			
-			 OutputStream os = new FileOutputStream(new File(path,
-			 fileFileName[i]));
-			
-			 byte[] buffer = new byte[500];
-			
-			 @SuppressWarnings("unused")
-			 int length = 0;
-			
-			 while(-1 != (length = is.read(buffer, 0, buffer.length)))
-			 {
-			 os.write(buffer);
-			 }
-			
-			 os.close();
-			 is.close();
+
+			System.out.println(path + "\\" + fileFileName[i]);
+
+			filebean.setFilename(fileFileName[i]);
+			filebean.setFolderid(upp);
+			filebean.setPath(path + "\\" + fileFileName[i]);
+			InputStream is = new FileInputStream(file[i]);
+
+			OutputStream os = new FileOutputStream(new File(path, fileFileName[i]));
+
+			byte[] buffer = new byte[500];
+
+			@SuppressWarnings("unused")
+			int length = 0;
+
+			while (-1 != (length = is.read(buffer, 0, buffer.length))) {
+				os.write(buffer);
+			}
+
+			os.close();
+			is.close();
+			fileDao.insertFile(filebean);
 		}
 
-		return "";
+		return "filesuccess";
 	}
+
+	public String download() throws UnsupportedEncodingException {
+
+		FileBean filebeansql = fileDao.getFilebyid(fileid);
+		fileName=filebeansql.getFilename();
+		System.out.println(fileName);
+
+		try {
+			File filedownload = new File(filebeansql.getPath());
+
+			inputStream = new FileInputStream(filedownload);
+			return "success";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "false";
+		}
+
+	}
+
 }

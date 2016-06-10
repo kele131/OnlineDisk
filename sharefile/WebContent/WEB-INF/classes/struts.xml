@@ -18,7 +18,19 @@
 			<result name="loadsuccess">/userjsp/user.jsp</result>			
 		</action>
 		<action name="file_*" class="fileAction" method="{1}">
-			<result name="filesuccess">/edisuc.jsp</result>
+			<result name="filesuccess">/userjsp/edisuc.jsp</result>
+			<result name="success" type="stream"><!--type 为 stream 应用 StreamResult 处理 -->
+				<param name="contentType">application/octet-stream</param><!--默认为 text/plain -->
+				<!-- 默认就是 inputStream，它将会指示 StreamResult 通过 inputName 属性值的 getter 方法， 
+					比如这里就是 getInputStream() 来获取下载文件的内容，意味着你的 Action 要有这个方法 -->
+				<param name="inputStream">inputStream</param>
+				<!-- 默认为 inline(在线打开)，设置为 attachment 将会告诉浏览器下载该文件，filename 指定下载文 件保有存时的文件名，若未指定将会是以浏览的页面名作为文件名，如以 
+					download.action 作为文件名， 这里使用的是动态文件名，${fileName}, 它将通过 Action 的 getFileName() 
+					获得文件名 -->
+				<param name="contentDisposition">attachment;filename=${fileName}</param>
+				<param name="bufferSize">4096</param><!-- 输出时缓冲区的大小 -->
+			</result>
+			<result name="false">/false.jsp</result>
 		</action>
 	</package>
 </struts>

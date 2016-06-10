@@ -18,8 +18,11 @@
 	<meta http-equiv="refresh" content="1;url=adminjsp/admin.jsp">
 	<%
 		} else {
-	%>
-	<meta http-equiv="refresh" content="1;url=userjsp/user.jsp">
+	String userid = ((UsersBean)session.getAttribute("USER")).getUserid();
+	int folderid = 0;
+
+%>
+	<meta http-equiv="refresh" content="1;'folder_loadFolderbyid?folder.idfolder=<%=folderid%>&&folder.userid=<%=userid%>'">
 	<%
 		}
 	%>

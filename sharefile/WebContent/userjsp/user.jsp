@@ -7,6 +7,29 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>用户界面</title>
+<script type="text/javascript">
+	function couldupload(inputfile) {
+		var file = inputfile.value;
+		var btn = document.getElementById("submitfile");
+		if (file == null) {
+			btn.style.display = "none";
+		} else {
+			var re=/^([\u4E00-\u9FA5]|\w)*$/; 
+			var name = file.substring(file.lastIndexOf('\\')+1,file.lastIndexOf('.'));
+			
+			if(re.test(name)){
+				btn.style.display = "";
+			}else{
+				btn.style.display = "none";
+				alert("文件名中含有特殊字符请重新选择")
+			}
+			
+		}
+
+		
+
+	}
+</script>
 
 </head>
 <body>
@@ -34,10 +57,10 @@
 						List objlist = (List) session.getAttribute("ROOTFOLDER");
 						List filelist = (List) session.getAttribute("FILELIST");
 						int upp = 0;
-						try{
-						upp = Integer.parseInt(session.getAttribute("oldp").toString());
-						}catch(Exception e){
-							
+						try {
+							upp = Integer.parseInt(session.getAttribute("oldp").toString());
+						} catch (Exception e) {
+
 						}
 
 						String up = (String) session.getAttribute("up");
@@ -55,8 +78,8 @@
 						FolderBean folder = (FolderBean) objlist.get(i);
 			%>
 			<tr>
-				<td><a id="<%=folder.getFoldername()%>"
-					href="folder_loadFolderbyid?folder.idfolder=<%=folder.getIdfolder()%>&&folder.userid=<%=a.getUserid()%>">文件夹：<%=folder.getFoldername()%></a></td>
+				<td>文件夹：<a id="<%=folder.getFoldername()%>"
+					href="folder_loadFolderbyid?folder.idfolder=<%=folder.getIdfolder()%>&&folder.userid=<%=a.getUserid()%>"><%=folder.getFoldername()%></a></td>
 			</tr>
 			<%
 				}
@@ -66,7 +89,7 @@
 						FileBean file = (FileBean) filelist.get(i);
 			%>
 			<tr>
-				<td>文件：<%=file.getFilename()%></td>
+				<td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp文件：<a href="file_download?fileid=<%=file.getIdfile() %>"><%=file.getFilename()%></a></td>
 			</tr>
 			<%
 				}
@@ -95,8 +118,9 @@
 			<input type="submit" value="新建文件夹" />
 		</form>
 
-		<form action="file_upload"  method="post" enctype="multipart/form-data">
-			<input type="file" name="file"  multiple/> <input type="submit" value="上传">
+		<form action="file_upload" method="post" enctype="multipart/form-data">
+			<lable>选择本地文件：</lable><input type="file" name="file" onchange="couldupload(this)" multiple />
+			<input id="submitfile" type="submit" value="上传" style="display: none">
 		</form>
 
 	</div>

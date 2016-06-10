@@ -58,9 +58,11 @@ public class FolderAction {
 		session.put("FILELIST", listfile);
 		if (folder.getIdfolder() == 0) {
 			session.put("up", "false");
+			session.put("myp", 0);
 			session.put("path", folder.getUserid());
 		} else {
 			session.put("oldp", fbsql.getFolderparent());
+			session.put("myp", fbsql.getIdfolder());
 			session.put("up", "true");
 			session.put("path", fbsql.getRemark());
 		}

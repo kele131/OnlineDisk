@@ -12,4 +12,9 @@
 		`sharefile`.`file` (`filename`, `folderid`, `path`, `userid`) VALUES
 		(#{filename}, #{folderid}, #{path}, #{userid});
 	</insert>
+	
+	<select id="getFilebyid" parameterType="int" resultType="filebean">
+		SELECT * FROM sharefile.file where
+		idfile = #{idfile}
+	</select>
 </mapper>
