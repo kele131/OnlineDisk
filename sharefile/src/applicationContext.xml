@@ -33,7 +33,7 @@
 			value="classpath:com/linkyuji/sqlMapper/mybatis_config.xml" />
 		<property name="dataSource" ref="dataSource" />
 	</bean>
-
+							<!-- DAO  -->
 	<bean id="folderDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
 	<property name="mapperInterface" value="com.linkyuji.dao.FolderDAO" />
 		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
@@ -49,11 +49,16 @@
 		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
 	</bean>
 	
-	
+							<!-- Action  -->
 	<bean id="folderAction" class="com.linkyuji.action.FolderAction">
 		<property name="folderDao" ref="folderDao"></property>
 		<property name="fileDao" ref="fileDao"></property>
 	</bean>
+	
+	<bean id="fileAction" class="com.linkyuji.action.FileAction">
+		<property name="fileDao" ref="fileDao"></property>
+	</bean>
+	
 	
 	<bean id="userAction" class="com.linkyuji.action.UserAction">
 		<property name="usersDao" ref="usersDao"></property>

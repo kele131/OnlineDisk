@@ -15,8 +15,10 @@
 		</action>
 		
 		<action name="folder_*" class="folderAction" method="{1}">
-			<result name="loadsuccess">/userjsp/user.jsp</result>
-			
+			<result name="loadsuccess">/userjsp/user.jsp</result>			
+		</action>
+		<action name="file_*" class="fileAction" method="{1}">
+			<result name="filesuccess">/edisuc.jsp</result>
 		</action>
 	</package>
 </struts>

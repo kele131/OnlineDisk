@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.linkyuji.dao.FileDAO">
-	<select id="loadFilebyfolderid" parameterType="folderbean" resultType="filebean">
-		SELECT * FROM sharefile.file where 
+	<select id="loadFilebyfolderid" parameterType="folderbean"
+		resultType="filebean">
+		SELECT * FROM sharefile.file where
 		folderid = #{idfolder} and userid=#{userid};;
 	</select>
+
+	<insert id="insertFile" parameterType="filebean">
+		INSERT INTO
+		`sharefile`.`file` (`filename`, `folderid`, `path`, `userid`) VALUES
+		(#{filename}, #{folderid}, #{path}, #{userid});
+	</insert>
 </mapper>

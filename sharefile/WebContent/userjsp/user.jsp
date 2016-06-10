@@ -34,8 +34,11 @@
 						List objlist = (List) session.getAttribute("ROOTFOLDER");
 						List filelist = (List) session.getAttribute("FILELIST");
 						int upp = 0;
-
-						upp = Integer.parseInt(session.getAttribute("oldp").toString()); 
+						try{
+						upp = Integer.parseInt(session.getAttribute("oldp").toString());
+						}catch(Exception e){
+							
+						}
 
 						String up = (String) session.getAttribute("up");
 						if (up != null && up.equals("true")) {
@@ -92,8 +95,8 @@
 			<input type="submit" value="新建文件夹" />
 		</form>
 
-		<form action="file_upload">
-			<input type="file" /> <input type="submit" value="上传">
+		<form action="file_upload"  method="post" enctype="multipart/form-data">
+			<input type="file" name="file"  multiple/> <input type="submit" value="上传">
 		</form>
 
 	</div>

@@ -71,12 +71,7 @@ public class FolderAction {
 		ActionContext actionContext = ActionContext.getContext(); // 取到struts容器
 		Map session = actionContext.getSession(); // 取得session
 		String path = (String) session.get("path");
-		
-		
 		folder.setFolderparent( folder.getIdfolder());
-		
-		
-		
 		String str = new String(folder.getFoldername().getBytes("ISO-8859-1"), "UTF-8");
 		folder.setFoldername(str);
 		folder.setRemark(path + "\\" + str);

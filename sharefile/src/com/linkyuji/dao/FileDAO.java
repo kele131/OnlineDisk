@@ -7,5 +7,6 @@ import com.linkyuji.bean.FolderBean;
 
 public interface FileDAO {
 	public List<FileBean> loadFilebyfolderid(FolderBean fb);
+	public void insertFile(FileBean fb);
 
 }
