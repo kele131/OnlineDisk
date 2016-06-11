@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.linkyuji.dao.ShareDAO">
+	<insert id="sharefile" parameterType="sharebean">
+		INSERT INTO `sharefile`.`fileshare` (`fileid`, `userid`) VALUES (#{fileid},
+		#{userid});
+	</insert>
+	<select id="loadsharefiles" parameterType="String" resultType="filebean">
+		SELECT b.idfile,b.filename
+		FROM sharefile.fileshare a,sharefile.file b
+		where a.fileid=b.idfile and a.userid = #{id};
+	</select>
+	<delete id="deletebyfileid" parameterType="int">
+		DELETE FROM `sharefile`.`fileshare` WHERE `fileid`=#{id};
+	</delete>
+</mapper>

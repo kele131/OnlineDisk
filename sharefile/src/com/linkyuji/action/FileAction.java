@@ -12,10 +12,12 @@ import com.linkyuji.bean.FileBean;
 import com.linkyuji.bean.FolderBean;
 import com.linkyuji.bean.UsersBean;
 import com.linkyuji.dao.FileDAO;
+import com.linkyuji.dao.ShareDAO;
 import com.opensymphony.xwork2.ActionContext;
 
 public class FileAction {
 	private FileBean filebean;
+	private ShareDAO shareDao;
 	private FileDAO fileDao;
 	private int fileid;
 	private File[] file;
@@ -24,6 +26,14 @@ public class FileAction {
 	private String[] fileFileName;
 	private String fileName;
 	
+
+	public ShareDAO getShareDao() {
+		return shareDao;
+	}
+
+	public void setShareDao(ShareDAO shareDao) {
+		this.shareDao = shareDao;
+	}
 
 	public FileBean getFilebean() {
 		return filebean;
@@ -148,6 +158,7 @@ public class FileAction {
 	    } 	
 		}catch(Exception e){}
 	    fileDao.deleteFile(fileid);
+	    shareDao.deletebyfileid(fileid);
 		return "filesuccess";
 	}
 

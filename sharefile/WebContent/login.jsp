@@ -19,6 +19,8 @@ input {
 </style>
 
 <script type="text/javascript">
+
+
 	function loadXMLDoc() {
 
 		var userid = document.getElementById("userid").value;
@@ -65,12 +67,13 @@ input {
 			<div id="myDiv"></div>
 			<label> 用户：</label><input id="userid" type="text" name="user.userid"
 				style="height: 30px" class="span3" value="请输入用户名"
-				onfocus="if(this.value=='请输入用户名'){this.value='',this.style.color='#000000'}"
+				onfocus="if(this.value=='请输入用户名'){this.value='',this.style.color='#000000',this.style.imeMode='disabled'}"
 				onblur="if(this.value==''){this.value='请输入用户名',this.style.color='#bfbfbf'}" />
 
 			<br> <label>密码：</label> <input id="psw" type="text"
 				name="user.userpsw" style="height: 30px" clss="span3" value="请输入密码"
-				onfocus="if(this.value=='请输入密码'){this.value='',this.style.color='#000000',this.type='password'}"
+				
+				onfocus="if(this.value=='请输入密码'){this.value='',this.style.color='#000000',this.type='password',this.style.imeMode='disabled' }"
 				onblur="if(this.value==''){this.value='请输入密码',this.style.color='#bfbfbf',this.type='text'}" />
 
 			<br> <br>

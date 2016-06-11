@@ -19,8 +19,7 @@
 	</select>
 	
 	<delete id="deleteFile" parameterType="int">
-		DELETE FROM `sharefile`.`file` WHERE `idfile`=#{id};
-		
+		DELETE FROM `sharefile`.`file` WHERE `idfile`=#{id};		
 	</delete>
 	
 </mapper>

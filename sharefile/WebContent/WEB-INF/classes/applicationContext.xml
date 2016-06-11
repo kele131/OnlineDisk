@@ -33,34 +33,46 @@
 			value="classpath:com/linkyuji/sqlMapper/mybatis_config.xml" />
 		<property name="dataSource" ref="dataSource" />
 	</bean>
-							<!-- DAO  -->
+	<!-- DAO -->
 	<bean id="folderDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
-	<property name="mapperInterface" value="com.linkyuji.dao.FolderDAO" />
+		<property name="mapperInterface" value="com.linkyuji.dao.FolderDAO" />
 		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
 	</bean>
-	
+
 	<bean id="usersDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
 		<property name="mapperInterface" value="com.linkyuji.dao.UsersDAO" />
 		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
 	</bean>
-	
+
 	<bean id="fileDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
-		<property name="mapperInterface" value="com.linkyuji.dao.FileDAO"/>
-		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+		<property name="mapperInterface" value="com.linkyuji.dao.FileDAO" />
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
 	</bean>
-	
-							<!-- Action  -->
+	<bean id="shareDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.linkyuji.dao.ShareDAO" />
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>
+	<!-- Action -->
 	<bean id="folderAction" class="com.linkyuji.action.FolderAction">
 		<property name="folderDao" ref="folderDao"></property>
 		<property name="fileDao" ref="fileDao"></property>
 	</bean>
-	
+
 	<bean id="fileAction" class="com.linkyuji.action.FileAction">
+		<property name="shareDao" ref="shareDao"></property>
 		<property name="fileDao" ref="fileDao"></property>
 	</bean>
-	
-	
+
 	<bean id="userAction" class="com.linkyuji.action.UserAction">
 		<property name="usersDao" ref="usersDao"></property>
 	</bean>
+	
+	<bean id="shareAction" class="com.linkyuji.action.ShareAction">
+		<property name="fileDao" ref="fileDao"></property>
+		<property name="shareDao" ref="shareDao"></property>
+	</bean>
+	
+	
+
+	
 </beans>

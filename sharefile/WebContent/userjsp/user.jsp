@@ -18,7 +18,7 @@
 	</center>
 	<%
 		UsersBean a = (UsersBean) session.getAttribute("USER");
-	
+
 		if (a == null)
 			return;
 	%>
@@ -29,65 +29,77 @@
 	<br>
 	<a href="user_exit">注销</a>
 	<center>
-	<div  style="width: 540px">
-		<table  border="1" class="table table-striped" >
-			<tr>
-				<td><a
-					href="folder_loadFolderbyid?folder.idfolder=0&&folder.userid=<%=a.getUserid()%>">主目录</a>
-					<%
-						List objlist = (List) session.getAttribute("ROOTFOLDER");
-						List filelist = (List) session.getAttribute("FILELIST");
-						int upp = 0;
-						try {
-							upp = Integer.parseInt(session.getAttribute("oldp").toString());
-						} catch (Exception e) {
+		<div style="width: 540px">
+			<table border="1" class="table table-striped">
+				<tr>
+					<td><a
+						href="folder_loadFolderbyid?folder.idfolder=0&&folder.userid=<%=a.getUserid()%>">主目录</a>
+						<%
+							List objlist = (List) session.getAttribute("ROOTFOLDER");
+							List filelist = (List) session.getAttribute("FILELIST");
+							int upp = 0;
+							try {
+								upp = Integer.parseInt(session.getAttribute("oldp").toString());
+							} catch (Exception e) {
 
-						}
+							}
 
-						String up = (String) session.getAttribute("up");
-						if (up != null && up.equals("true")) {
-					%> <a
-					href="folder_loadFolderbyid?folder.idfolder=<%=upp%>&&folder.userid=<%=a.getUserid()%>">上一级</a>
-					<%
-						}
-					%></td>
-			</tr>
+							String up = (String) session.getAttribute("up");
+							if (up != null && up.equals("true")) {
+						%> <a
+						href="folder_loadFolderbyid?folder.idfolder=<%=upp%>&&folder.userid=<%=a.getUserid()%>">上一级</a>
+						<%
+							} else {
+						%></td>
+				</tr>
+				<tr>
+					<td align="center"> 文件夹：<a href="share_loadfiles?userid=<%=a.getUserid()%>">我的分享</a> <%
+ 	}
+ %></td>
+				</tr>
 
-			<%
-				if (objlist != null) {
-					for (int i = 0; i < objlist.size(); i++) {
-						FolderBean folder = (FolderBean) objlist.get(i);
-			%>
-			<tr>
-				<td><div style='float:left;width:80%'>
-					文件夹：<a id="<%=folder.getFoldername()%>"
-					href="folder_loadFolderbyid?folder.idfolder=<%=folder.getIdfolder()%>&&folder.userid=<%=a.getUserid()%>"><%=folder.getFoldername()%></a>
-					</div>
-					<div align="right" style='float:right;width:20%'><a  href="folder_deleteFolder?folderid=<%=folder.getIdfolder()%>">删除</a></div>
-				</td>
-					
-			</tr>
-			<%
-				}
-				}
-				if (filelist != null) {
-					for (int i = 0; i < filelist.size(); i++) {
-						FileBean file = (FileBean) filelist.get(i);
-			%>
-			<tr>
-				<td >
-				<div style='float:left;width:80%'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp文件：
-				<a href="file_download?fileid=<%=file.getIdfile() %>"><%=file.getFilename()%></a></div>
-				<div align="right" style='float:right;width:20%'><a  href="file_delete?fileid=<%=file.getIdfile() %>">删除</a></div>
-				</td>
-			</tr>
-			<%
-				}
+				<%
+					if (objlist != null) {
+						for (int i = 0; i < objlist.size(); i++) {
+							FolderBean folder = (FolderBean) objlist.get(i);
+				%>
+				<tr>
+					<td><div style='float: left; width: 80%'>
+							文件夹：<a id="<%=folder.getFoldername()%>"
+								href="folder_loadFolderbyid?folder.idfolder=<%=folder.getIdfolder()%>&&folder.userid=<%=a.getUserid()%>"><%=folder.getFoldername()%></a>
+						</div>
+						<div align="right" style='float: right; width: 20%'>
+							<a href="folder_deleteFolder?folderid=<%=folder.getIdfolder()%>">删除</a>
+						</div></td>
 
-				}
-			%>
-		</table>
-</div>
+				</tr>
+				<%
+					}
+					}
+					if (filelist != null) {
+						for (int i = 0; i < filelist.size(); i++) {
+							FileBean file = (FileBean) filelist.get(i);
+				%>
+				<tr>
+					<td>
+						<div style='float: left; width: 80%'>
+							&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp文件： <a
+								href="file_download?fileid=<%=file.getIdfile()%>"><%=file.getFilename()%></a>
+						</div>
+						<div align="right" style='float: right; width: 20%'>
+							<a href="share_shareload?fileid=<%=file.getIdfile()%>">分享</a> <a
+								href="file_delete?fileid=<%=file.getIdfile()%>">删除</a>
+
+						</div>
+					</td>
+				</tr>
+				<%
+					}
+
+					}
+				%>
+			</table>
+		</div>
 
 	</center>
 	<%
@@ -109,7 +121,8 @@
 		</form>
 
 		<form action="file_upload" method="post" enctype="multipart/form-data">
-			<lable>选择本地文件：</lable><input type="file" name="file" onchange="couldupload(this)" multiple />
+			<lable>选择本地文件：</lable>
+			<input type="file" name="file" onchange="couldupload(this)" multiple />
 			<input id="submitfile" type="submit" value="上传" style="display: none">
 		</form>
 
@@ -123,17 +136,17 @@
 		if (file == null) {
 			btn.style.display = "none";
 		} else {
-			var re=/^([\u4E00-\u9FA5]|\w)*$/; 
-			var name = file.substring(file.lastIndexOf('\\')+1,file.lastIndexOf('.'));
-			
-			if(re.test(name)){
+			var re = /^([\u4E00-\u9FA5]|\w)*$/;
+			var name = file.substring(file.lastIndexOf('\\') + 1, file
+					.lastIndexOf('.'));
+
+			if (re.test(name)) {
 				btn.style.display = "";
-			}else{
+			} else {
 				btn.style.display = "none";
 				alert("文件名中含有特殊字符请重新选择")
-				
-			}			
+
+			}
 		}
 	}
-		
 </script>

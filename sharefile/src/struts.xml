@@ -14,10 +14,19 @@
 			<result name="edisusses">/adminjsp/edisuc.jsp</result>
 			<result name="exit">/login.jsp</result>
 		</action>
-		
+
 		<action name="folder_*" class="folderAction" method="{1}">
-			<result name="loadsuccess">/userjsp/user.jsp</result>			
+			<result name="loadsuccess">/userjsp/user.jsp</result>
 		</action>
+		
+		
+		<action name="share_*" class="shareAction" method="{1}">
+			<result name="sharesuccess">/userjsp/share.jsp</result>
+			<result name="succ">/userjsp/user.jsp</result>
+			<result name="sharelist">/userjsp/loadshare.jsp</result>
+		</action>
+		
+		
 		<action name="file_*" class="fileAction" method="{1}">
 			<result name="filesuccess">/userjsp/edisuc.jsp</result>
 			<result name="success" type="stream"><!--type 为 stream 应用 StreamResult 处理 -->

@@ -5,12 +5,13 @@
 		<typeAlias alias="userbean" type="com.linkyuji.bean.UsersBean" />
 		<typeAlias alias="folderbean" type="com.linkyuji.bean.FolderBean"/>
 		<typeAlias alias="filebean" type="com.linkyuji.bean.FileBean"/>
+		<typeAlias alias="sharebean" type="com.linkyuji.bean.ShareBean"/>
 	</typeAliases>
 
 	<mappers>
 		<mapper resource="com/linkyuji/sqlMapper/UsersMapper.xml" />
 		<mapper resource="com/linkyuji/sqlMapper/FolderMapper.xml" />
 		<mapper resource="com/linkyuji/sqlMapper/FileMapper.xml"/>
-		
+		<mapper resource="com/linkyuji/sqlMapper/ShareMapper.xml"/>
 	</mappers>
 </configuration>
