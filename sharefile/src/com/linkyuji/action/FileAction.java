@@ -106,14 +106,16 @@ public class FileAction {
 		for (int i = 0; i < file.length; i++) {
 
 			System.out.println(path + "\\" + fileFileName[i]);
-
+			File thefile = new File(path + "\\" + fileFileName[i]);
+			if(thefile.exists())
+				return "filefail";
 			filebean.setFilename(fileFileName[i]);
 			filebean.setFolderid(upp);
 			filebean.setPath(path + "\\" + fileFileName[i]);
 			InputStream is = new FileInputStream(file[i]);
 
 			OutputStream os = new FileOutputStream(new File(path, fileFileName[i]));
-
+			
 			byte[] buffer = new byte[500];
 
 			@SuppressWarnings("unused")
